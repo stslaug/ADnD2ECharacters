@@ -6,7 +6,6 @@ export function WeaponTableRow({ weapon }) {
         <td>{weapon.magAdj}</td>
         <td>{weapon.range}</td>
         <td>{weapon.speed}</td>
-    
         {/* 2 columns for Damage VS Size S-M/L */}
         <td>{weapon.damageSm}</td>
         <td>{weapon.damageMl}</td>
