@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
     output: 'export',
     basePath: '/ADnD2ECharacters',
     assetPrefix: '/ADnD2ECharacters/',
-    distDir: "build",
   images: {
     unoptimized: true,
   },
