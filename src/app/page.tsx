@@ -4,13 +4,14 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Inventory from "@/components/ui/pageSections/inventory";
 import RogueAbilities from "@/components/ui/pageSections/rogueAbilities";
-import SpellCasting from "@/components/ui/pageSections/spellCasting";
+import SpellCasting from "@/components/ui/pageSections/spellCastingAndClericalAbilities";
 import Combat from "@/components/ui/pageSections/combat";
-import SavingThrowsAndSenses from "@/components/ui/pageSections/savingThrowsAndSenses";
+import SavingThrowsAndSenses from "@/components/ui/pageSections/proficienciesAndSenses";
 import BasicInfo from "@/components/ui/pageSections/basicInfo";
 import PlayerInfo from "@/components/ui/pageSections/playerInfo";
 import Experience from "@/components/ui/pageSections/experience";
 import { CharacterData } from "@/types/character";
+import StatsAndSavingThrows from "@/components/ui/pageSections/statsAndSavingThrows";
 
 const defaultData: CharacterData = {
   // Metadata about the sheet
@@ -212,37 +213,32 @@ const defaultData: CharacterData = {
 
 export default function Home() {
   const [currFile, setCurrFile] = useState(null);
-  const [characterData, setCharacterData] = useState<CharacterData>(() => {
-    // Check if a save exists on this device
+  const [characterData, setCharacterData] = useState<CharacterData>(defaultData);
+  const [isMounted, setIsMounted] = useState(false);
 
-    const savedCharacter = localStorage.getItem("characterSave");
-
-    if (savedCharacter) {
-      try {
-        const parsed = JSON.parse(savedCharacter);
-        // Basic check to see if it's the new structure
-        if (parsed && parsed.meta && parsed.identity) {
-          return parsed;
-        }
-        console.warn("Old character data structure detected. Resetting to default.");
-      } catch (e) {
-        console.error("Failed to parse saved character data:", e);
-      }
-    }
-    // If it doesn't exist (first time visiting), use the default data
-    return defaultData;
-  });
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // 2. Auto-Save to LocalStorage
   // This useEffect watches 'characterData'. Whenever it changes, it overwrites the save file.
   useEffect(() => {
-    localStorage.setItem("characterSave", JSON.stringify(characterData));
-  }, [characterData]);
+    
+    const savedCharacter = localStorage.getItem("characterSave");
+    if (savedCharacter) {
+      try {
+        const parsed = JSON.parse(savedCharacter);
+        if (parsed && parsed.meta && parsed.identity) {
+          setCharacterData(parsed);
+          setIsMounted(true);
+        }
+      } catch (e) {
+        console.error("Failed to parse saved character data:", e);
+      }
+    }
+  }, []);
 
   const triggerFileInput = () => {
     if (fileInputRef.current === null) return;
-    fileInputRef.current.click();
+    else fileInputRef.current.click();
   };
 
   /**
@@ -254,7 +250,7 @@ export default function Home() {
     setCharacterData((prev) => {
       const newState = { ...prev };
       const keys = path.split(".");
-      let current = newState;
+      let current: any = newState;
 
       for (let i = 0; i < keys.length - 1; i++) {
         const key = keys[i];
@@ -294,7 +290,7 @@ export default function Home() {
   };
 
 
-  const handleFileChange = (event) => {
+  const handleFileChange = (event: any) => {
     const file = event.target.files[0];
     if (!file) return; // User canceled the picker
 
@@ -303,8 +299,8 @@ export default function Home() {
     // This runs asynchronously once the file is read
     reader.onload = (e) => {
       try {
-        const text = e.target.result;
-        const parsedData = JSON.parse(text);
+        const text = e?.target?.result;
+        const parsedData = JSON.parse(text?.toString() || "");
         setCharacterData(parsedData);
       } catch (error) {
         console.error("Error parsing JSON:", error);
@@ -326,7 +322,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+    <div className=" justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex flex-col relative min-h-screen w-full max-w-6xl items-center  gap-4  py-32 px-16 bg-white dark:bg-black sm:items-start">
         <Image
           src={adnd2eimage}
@@ -341,6 +337,9 @@ export default function Home() {
 
         {/* 2nd Row (Character Info Personal Info) */}
         <BasicInfo characterData={characterData} handleUpdate={handleUpdate} />
+
+
+        <StatsAndSavingThrows characterData={characterData} handleUpdate={handleUpdate} />
 
         <hr className="border-1 rounded-full w-full"></hr>
         {/* 3rd Row (Saving Throws and Resistances AND Senses) */}

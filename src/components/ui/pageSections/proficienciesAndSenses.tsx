@@ -161,7 +161,7 @@ export default function SavingThrowsAndSenses({characterData, handleUpdate }: {
               <label className="text-xs uppercase">Check Mod:</label>
               <input
                 type="text"
-                value={item.checkModifier}
+                value={item.checkModifier || ""}
                 onChange={(e) => handleUpdate(`proficiencies.nonWeapon.${index}.checkModifier`, e.target.value)}
                 className="w-12 bg-transparent outline-none border-b border-transparent hover:border-zinc-300 focus:border-zinc-800 text-center font-medium"
               />

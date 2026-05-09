@@ -1,8 +1,8 @@
 import { CharacterData } from "@/types/character";
 
-export default function PlayerInfo({ characterData, handleUpdate }: {
-  characterData: CharacterData;
-  handleUpdate: (path: string, value: any) => void;
+export default function PlayerInfo({ characterData, handleUpdate }: { 
+  characterData: CharacterData; 
+  handleUpdate: (path: string, value: any) => void; 
 }) {
   return (
     <section className="w-full flex relative">

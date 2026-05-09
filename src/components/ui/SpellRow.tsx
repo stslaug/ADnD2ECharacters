@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Spell } from "@/types/character";
+import duplicateIcon from "@/assets/icons/duplicate.svg";
 export default function SpellRow({ 
   spell, 
   path, 
@@ -91,7 +92,7 @@ export default function SpellRow({
             className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-5 h-5 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
             title="Duplicate Spell"
           >
-            <Image src="/duplicate.svg" alt="Duplicate" width={12} height={12} className="dark:invert" />
+            <Image src={duplicateIcon} alt="Duplicate" width={12} height={12} className="dark:invert" />
           </button>
 
           <button
