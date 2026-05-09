@@ -9,16 +9,35 @@ import Combat from "@/components/ui/pageSections/combat";
 import SavingThrowsAndSenses from "@/components/ui/pageSections/savingThrowsAndSenses";
 import BasicInfo from "@/components/ui/pageSections/basicInfo";
 import PlayerInfo from "@/components/ui/pageSections/playerInfo";
+import Experience from "@/components/ui/pageSections/experience";
+import { CharacterData } from "@/types/character";
 
-const defaultData = {
-  pname: "Tyler S",
-  dateCreated: "05/15/2023",
-  campaign: "The Misfits",
-  name: "Darkose Rimfire",
-  class: "Mage",
-  school: "Evocation",
-  familiar: "Owl",
-  specialAbilities: "Read Magic",
+const defaultData: CharacterData = {
+  // Metadata about the sheet
+  meta: {
+    playerName: "Tyler S",
+    campaign: "The Misfits",
+    dateCreated: "05/15/2023",
+  },
+
+  // Character Identity
+  identity: {
+    name: "Darkose Rimfire",
+    race: "Human",
+    alignment: "Chaotic Good",
+    deity: "None",
+    origin: "None",
+    patronDeity: "None",
+    classes: [
+      { name: "Mage", level: 1, experience: 100 },
+      { name: "Rogue", level: 1, experience: 100 },
+    ],
+    school: "Evocation",
+    familiar: "Owl",
+    specialAbilities: "Read Magic",
+  },
+
+  // Ability Scores
   stats: {
     STR: { score: 8, hitAdj: "0", dmgAdj: "0", openDoors: "0", bendBars: "0%" },
     DEX: { score: 9, reactAdj: "0", missileAdj: "0", defenseAdj: "0" },
@@ -27,98 +46,98 @@ const defaultData = {
     INT: { score: 11, addLanguage: "0", knowSpell: "0%", minSpells: "0", maxSpells: "0" },
     CHA: { score: 13, maxHenchmen: "0", loyaltyBase: "0", reactionAdj: "0" },
   },
-  race: "Human",
-  alignment: "Chaotic Good",
-  diety: "None",
-  level: 1,
-  origin: "None",
-  patronDeity: "None",
-  hitPoints: 10,
-  hitDice: "d10",
-  armorClass: 10,
-  speed: 60,
-  visionType: "Ultra",
-  listening: "Acute",
-  movementSpeed: 120,
-  actMovementSpeed: 60,
-  swimMovementSpeed: 60,
-  languages: ["Common", "Elvish", "Draconic"],
-  detectionSkill: "Can not currently detect",
-  resistances: "Poison, Cold, Fire, Lightning, Acid, Magic, Magic",
-  immunities: "Poison, Cold, Fire, Lightning, Acid, Magic",
-  
-  savingThrowsParalyzationPoison: 10,
-  savingThrowsPetrificationPolymorph: 11,
-  savingThrowsRodsStavesWands: 12,
-  savingThrowsBreathWeapons: 13,
-  savingThrowsSpells: 13,
-  weapons: [
-    {
-      name: "Shortsword",
-      magAdj: "+1",
-      range: "10",
-      speed: "2",
-      damageSm: "1d6",
-      damageMl: "1d8",
+
+  // Core Vitals and Combat Stats
+  vitals: {
+    hp: {
+      current: 10,
+      max: 10,
+      die: "d10",
     },
-  ],
-  savingThrowsBonus: [
-    { type: "to Poison", value: "+4" },
-    { type: "to Fire", value: "-4" },
-    { type: "to Poison", value: "+4" },
-    { type: "to Fire", value: "-4" },
-    { type: "to Poison", value: "+4" },
-    { type: "to Fire", value: "-4" },
-  ],
+    ac: {
+      base: 10,
+      current: 10,
+      shieldless: 8,
+      rear: 10,
+    },
+    movement: {
+      base: 120,
+      actual: 60,
+      swim: 60,
+      speed: 60,
+    },
+    condition: "Good",
+    wounds: 0,
+  },
+
+  // Traits and Senses
+  traits: {
+    visionType: "Ultra",
+    listening: "Acute",
+    languages: ["Common", "Elvish", "Draconic"],
+    detectionSkill: "Can not currently detect",
+    resistances: "Poison, Cold, Fire, Lightning, Acid, Magic, Magic",
+    immunities: "Poison, Cold, Fire, Lightning, Acid, Magic",
+  },
+
+  // Saving Throws
+  savingThrows: {
+    base: {
+      paralyzationPoison: 10,
+      petrificationPolymorph: 11,
+      rodsStavesWands: 12,
+      breathWeapons: 13,
+      spells: 13,
+    },
+    bonuses: [
+      { type: "to Poison", value: "+4" },
+      { type: "to Fire", value: "-4" },
+      { type: "to Poison", value: "+4" },
+      { type: "to Fire", value: "-4" },
+      { type: "to Poison", value: "+4" },
+      { type: "to Fire", value: "-4" },
+    ],
+  },
+
+  // Combat Adjustments
   combat: {
     armorWorn: "Robes",
-    acBase: 10,
-    condition: "Good",
     dexAdj: -2,
     magicalAdj: 0,
-    shieldlessAc: 8,
-    rearAc: 10,
-    constAdj: 0,
     specialAdj: "None",
-    wounds: 0,
     surprise: 0,
-    dexAdjust: -2,
     rearAttacksAdjust: 0,
     adjustments: [{ mod: "Slings", bonus: "+4" }],
   },
-  arcaneSpellSlots: {
-    first: 0,
-    second: 0,
-    third: 0,
-    fourth: 0,
-    fifth: 0,
-    sixth: 0,
-    seventh: 0,
-    eighth: 0,
-    ninth: 0,
-  },
-  divineSpellSlots: {
-    first: 0,
-    second: 0,
-    third: 0,
-    fourth: 0,
-    fifth: 0,
-    sixth: 0,
-    seventh: 0,
-  },
-  spells: [
-    {
-      name: "Magic Missile",
-      level: 1,
-      school: "Evocation",
-      components: "S, V, M",
-      range: "30 ft.",
-      duration: "1 round",
-      damage: "1d4 + 1 damage",
-      savingThrow: "None",
-      description: "You create a magical missile that explodes on impact...",
+
+  // Magic and Spellcasting
+  magic: {
+    slots: {
+      arcane: {
+        first: 0, second: 0, third: 0, fourth: 0, fifth: 0,
+        sixth: 0, seventh: 0, eighth: 0, ninth: 0,
+      },
+      divine: {
+        first: 0, second: 0, third: 0, fourth: 0, fifth: 0,
+        sixth: 0, seventh: 0,
+      },
     },
-  ],
+    spells: [
+      {
+        name: "Magic Missile",
+        level: 1,
+        school: "Evocation",
+        components: "S, V, M",
+        range: "30 ft.",
+        duration: "1 round",
+        damage: "1d4 + 1 damage",
+        savingThrow: "None",
+        description: "You create a magical missile that explodes on impact...",
+      },
+    ],
+  },
+
+  // Rogue Specifics
   rogue: {
     pickPocket: "50%",
     openLocks: "50%",
@@ -126,24 +145,55 @@ const defaultData = {
     moveSilently: "50%",
     hideInShadows: "50%",
     hearNoise: "50%",
-    climbNoise: "50%",
+    climbWalls: "50%",
     readLanguages: "-5%",
     backStabMult: "2x",
   },
-  magicInventory: [
-    { name: " +1 Dagger", qty: "1" },
-    { name: "Shortsword", qty: "1" },
-  ],
-  inventory: [
-    { name: "Dagger", qty: "1" },
-    { name: "Shortsword", qty: "1" },
-    { name: "Dagger", qty: "1" },
-    { name: "Shortsword", qty: "1" },
-    { name: "Longsword", qty: "1" },
-    { name: "Shortsword", qty: "1" },
-  ],
-  coins: { cp: 0, sp: 0, ep: 0, gp: 0, pp: 0 },
-  turnRate: {
+
+  // Inventory and Economy
+  inventory: {
+    weapons: [
+      {
+        name: "Shortsword",
+        magAdj: "+1",
+        range: "10",
+        speed: "2",
+        damageSm: "1d6",
+        damageMl: "1d8",
+      },
+    ],
+    magic: [
+      { name: " +1 Dagger", qty: "1", description: "A finely crafted dagger with a magical bonus to hit and damage." },
+      { name: "Shortsword", qty: "1", description: "A standard shortsword, though it feels hums with faint energy." },
+    ],
+    standard: [
+      { name: "Dagger", qty: "1", description: "A simple iron dagger." },
+      { name: "Shortsword", qty: "1", description: "A common shortsword." },
+      { name: "Dagger", qty: "1", description: "Another iron dagger." },
+      { name: "Shortsword", qty: "1", description: "Backup shortsword." },
+      { name: "Longsword", qty: "1", description: "A sturdy longsword." },
+      { name: "Shortsword", qty: "1", description: "Standard issue." },
+    ],
+    coins: { cp: 0, sp: 0, ep: 0, gp: 0, pp: 0 },
+  },
+
+  // Proficiencies
+  proficiencies: {
+    weapon: ["Short Sword", "Sling", "Dagger"],
+    nonWeapon: [
+      { name: "Appraising", checkModifier: "0", ram: "W +3", roll: "13" },
+      { name: "Performance", checkModifier: "0",  ram: "W +3", roll: "13" },
+      { name: "Stealth", checkModifier: "0",  ram: "W +5", roll: "15" },
+      { name: "Survival", checkModifier: "0",  ram: "W +4", roll: "14" },
+      { name: "Stealth", checkModifier: "0",  ram: "W +5", roll: "15" },
+      { name: "Survival", checkModifier: "0",  ram: "W +4", roll: "14" },
+      { name: "Stealth", checkModifier: "0",  ram: "W +5", roll: "15" },
+      { name: "Survival", checkModifier: "0",  ram: "W +4", roll: "14" },
+    ],
+  },
+
+  // Priest/Paladin Turn Undead
+  turnUndead: {
     skeleton: 80,
     zombie: 10,
     ghoul: 13,
@@ -158,28 +208,26 @@ const defaultData = {
     lich: "N/A",
     special: "N/A",
   },
-  weaponProficiencies: ["Short Sword", "Sling", "Dagger"],
-  nonWeaponProficiencies: [
-    { name: "Appraising", ram: "+3", roll: "13" },
-    { name: "Performance", ram: "W +3", roll: "13" },
-    { name: "Stealth", ram: "W +5", roll: "15" },
-    { name: "Survival", ram: "W +4", roll: "14" },
-    { name: "Stealth", ram: "W +5", roll: "15" },
-    { name: "Survival", ram: "W +4", roll: "14" },
-    { name: "Stealth", ram: "W +5", roll: "15" },
-    { name: "Survival", ram: "W +4", roll: "14" },
-  ],
 };
 
 export default function Home() {
   const [currFile, setCurrFile] = useState(null);
-  const [characterData, setCharacterData] = useState(() => {
+  const [characterData, setCharacterData] = useState<CharacterData>(() => {
     // Check if a save exists on this device
+
     const savedCharacter = localStorage.getItem("characterSave");
 
     if (savedCharacter) {
-      // If it exists, parse it and use it
-      return JSON.parse(savedCharacter);
+      try {
+        const parsed = JSON.parse(savedCharacter);
+        // Basic check to see if it's the new structure
+        if (parsed && parsed.meta && parsed.identity) {
+          return parsed;
+        }
+        console.warn("Old character data structure detected. Resetting to default.");
+      } catch (e) {
+        console.error("Failed to parse saved character data:", e);
+      }
     }
     // If it doesn't exist (first time visiting), use the default data
     return defaultData;
@@ -193,42 +241,32 @@ export default function Home() {
   }, [characterData]);
 
   const triggerFileInput = () => {
-    if(fileInputRef.current === null) return;
+    if (fileInputRef.current === null) return;
     fileInputRef.current.click();
   };
 
-  const handleUpdate = (field, value, nestedCategory = null, subField = null) => {
+  /**
+   * Universal path-based update function
+   * @param {string} path - Dot-separated path to the field (e.g., 'identity.name', 'stats.STR.score')
+   * @param {any} value - The new value to set
+   */
+  const handleUpdate = (path: string, value: any) => {
     setCharacterData((prev) => {
-      // 3 levels deep (e.g., stats -> STR -> score)
-      if (nestedCategory && subField) {
-        return {
-          ...prev,
-          [field]: {
-            ...prev[field],
-            [nestedCategory]: {
-              ...prev[field][nestedCategory],
-              [subField]: value
-            }
-          }
-        };
+      const newState = { ...prev };
+      const keys = path.split(".");
+      let current = newState;
+
+      for (let i = 0; i < keys.length - 1; i++) {
+        const key = keys[i];
+        // Create a shallow copy of the next level to ensure immutability
+        current[key] = Array.isArray(current[key]) 
+          ? [...current[key]] 
+          : { ...current[key] };
+        current = current[key];
       }
-      
-      // 2 levels deep (e.g., combat -> armorWorn)
-      if (nestedCategory && !subField) {
-        return {
-          ...prev,
-          [field]: {
-            ...prev[field],
-            [nestedCategory]: value
-          }
-        };
-      }
-      
-      // 1 level deep (e.g., armorClass, name)
-      return {
-        ...prev,
-        [field]: value
-      };
+
+      current[keys[keys.length - 1]] = value;
+      return newState;
     });
   };
 
@@ -246,7 +284,7 @@ export default function Home() {
     const link = document.createElement("a");
     link.href = url;
     // Suggest a filename based on the character's name
-    link.download = `${characterData.name.replace(/\s+/g, "_")}_Sheet.json`;
+    link.download = `${characterData.identity.name.replace(/\s+/g, "_")}_Sheet.json`;
     document.body.appendChild(link);
     link.click();
 
@@ -254,6 +292,7 @@ export default function Home() {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   };
+
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -288,18 +327,15 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-     
       <main className="flex flex-col relative min-h-screen w-full max-w-6xl items-center  gap-4  py-32 px-16 bg-white dark:bg-black sm:items-start">
-      <Image
+        <Image
           src={adnd2eimage}
           alt="advanced-D&D-image"
           width={200}
           height={500}
-          className=" absolute lg:left-[40%] top-33 "  
+          className=" absolute lg:left-[40%] top-33 "
         />
-        
-        
-        
+
         {/* Top/1st Row  (Player Info) */}
         <PlayerInfo characterData={characterData} handleUpdate={handleUpdate} />
 
@@ -308,7 +344,10 @@ export default function Home() {
 
         <hr className="border-1 rounded-full w-full"></hr>
         {/* 3rd Row (Saving Throws and Resistances AND Senses) */}
-        <SavingThrowsAndSenses characterData={characterData} handleUpdate={handleUpdate} />
+        <SavingThrowsAndSenses
+          characterData={characterData}
+          handleUpdate={handleUpdate}
+        />
 
         <hr className="border-1 rounded-full w-full"></hr>
         {/* 4th Row Combat  */}
@@ -316,20 +355,25 @@ export default function Home() {
 
         <hr className="border-1 rounded-full w-full"></hr>
         {/* 5th row Spells */}
-        <SpellCasting characterData={characterData} handleUpdate={handleUpdate}/>
+        <SpellCasting
+          characterData={characterData}
+          handleUpdate={handleUpdate}
+        />
 
         <hr className="border-1 rounded-full w-full"></hr>
         {/* 6th row Thieves Stats */}
-        <RogueAbilities characterData={characterData} handleUpdate={handleUpdate} />
+        <RogueAbilities
+          characterData={characterData}
+          handleUpdate={handleUpdate}
+        />
         {/* 7th row Inventory */}
         <hr className="border-1 rounded-full w-full"></hr>
 
         <Inventory characterData={characterData} handleUpdate={handleUpdate} />
-
+        <Experience characterData={characterData} handleUpdate={handleUpdate} />
 
         {/* Load/ Save Character Info */}
         <section className="flex flex-row gap-4 w-full justify-end">
-         
           {/* The hidden file input */}
           <input
             type="file"
@@ -361,8 +405,6 @@ export default function Home() {
           >
             Reset
           </button>
-        
-        
         </section>
       </main>
     </div>

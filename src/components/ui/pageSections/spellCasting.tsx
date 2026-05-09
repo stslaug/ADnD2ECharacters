@@ -1,94 +1,135 @@
-export default function SpellCasting({ characterData, handleUpdate }: any) {
+import { CharacterData, Spell } from "@/types/character";
+import SpellRow from "@/components/ui/SpellRow";
+
+export default function SpellCasting({ characterData, handleUpdate }: {
+  characterData: CharacterData;
+  handleUpdate: (path: string, value: any) => void;
+  
+}) {
+  const handleAddSpell = () => {
+    const newSpell: Spell = {
+      name: "New Spell",
+      level: 1,
+      school: "General",
+      components: "V, S",
+      range: "Touch",
+      duration: "Instant",
+      damage: "-",
+      savingThrow: "None",
+      description: ""
+    };
+    handleUpdate("magic.spells", [...characterData.magic.spells, newSpell]);
+  };
+
+  const handleRemoveSpell = (index: number) => {
+    const updated = characterData.magic.spells.filter((_, i) => i !== index);
+    handleUpdate("magic.spells", updated);
+  };
+
+  const handleDuplicateSpell = (index: number) => {
+    const spellToDuplicate = characterData.magic.spells[index];
+    const duplicatedSpell = { ...spellToDuplicate };
+    const updatedSpells = [...characterData.magic.spells];
+    // Insert the duplicate right after the original
+    updatedSpells.splice(index + 1, 0, duplicatedSpell);
+    handleUpdate("magic.spells", updatedSpells);
+  };
+  const isWizard = characterData.identity.classes.some(cls => (cls?.name.toLowerCase() === "mage" || cls?.name.toLowerCase() === "wizard")); 
+  const isCleric = characterData.identity.classes.some(cls => (cls?.name.toLowerCase() === "cleric" || cls?.name.toLowerCase() === "priest")); 
+
     return (
+      <>
+      {(isWizard || isCleric) && (
       <section className="w-full">
         <section className="flex flex-row gap-8 w-full">
           {/* Right Column (Spells) */}
           <div className="flex flex-col w-full">
             <div className="w-full flex flex-row mb-4">
-              <div className="w-15 min-w-min h-min p-4 text-nowrap border-2 border-black font-bold text-2xl">
-                SPELLS—KNOWN
+              <div className="relative group">
+                <div className="w-15 min-w-min h-min p-4 text-nowrap border-2 border-black font-bold text-2xl bg-white dark:bg-zinc-900">
+                  SPELLS KNOWN
+                </div>
+                <button
+                  onClick={handleAddSpell}
+                  className="absolute -right-4 top-4 w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 transition-all font-bold text-xl shadow-sm border border-black/10 z-10"
+                  title="Add Spell"
+                >
+                  <span className="leading-none">+</span>
+                </button>
               </div>
               <div className="flex flex-col text-center w-full">
                 <span className="text-nowrap flex flex-row justify-center gap-2">
                   SCHOOL: 
                   <input
                     type="text"
-                    value={characterData.school}
-                    onChange={(e) => handleUpdate("school", e.target.value)}
-                    className="bg-transparent outline-none border-b-2 border-transparent hover:border-zinc-300 focus:border-zinc-800 transition-colors"
+                    value={characterData.identity.school}
+                    onChange={(e) => handleUpdate("identity.school", e.target.value)}
+                    className="bg-transparent outline-none border-b border-transparent hover:border-zinc-300 focus:border-zinc-800 transition-colors"
                   />
                 </span>
                 <span className="text-nowrap flex flex-row justify-center gap-2">
                   FAMILIAR/PET: 
                   <input
                     type="text"
-                    value={characterData.familiar}
-                    onChange={(e) => handleUpdate("familiar", e.target.value)}
-                    className="bg-transparent outline-none border-b-2 border-transparent hover:border-zinc-300 focus:border-zinc-800 transition-colors"
+                    value={characterData.identity.familiar}
+                    onChange={(e) => handleUpdate("identity.familiar", e.target.value)}
+                    className="bg-transparent outline-none border-b border-transparent hover:border-zinc-300 focus:border-zinc-800 transition-colors"
                   />
                 </span>
                 <span className="text-nowrap flex flex-row justify-center gap-2">
                   SPECIAL ABILITIES: 
                   <input
                     type="text"
-                    value={characterData.specialAbilities}
-                    onChange={(e) => handleUpdate("specialAbilities", e.target.value)}
-                    className="bg-transparent outline-none border-b-2 border-transparent hover:border-zinc-300 focus:border-zinc-800 transition-colors w-1/2"
+                    value={characterData.identity.specialAbilities}
+                    onChange={(e) => handleUpdate("identity.specialAbilities", e.target.value)}
+                    className="bg-transparent outline-none border-b border-transparent hover:border-zinc-300 focus:border-zinc-800 transition-colors w-1/2"
                   />
                 </span>
               </div>
             </div>
   
             {/* Spells Memorized table */}
-            <table className="flex flex-col gap-2">
-              <tbody>
-                {characterData.spells.map((spell: any, index: number) => (
-                  <tr
-                    className="flex flex-row gap-2 justify-between"
-                    key={index}
-                  >
-                    <td className="whitespace-nowrap min-w-min max-w-[10px]">
-                      lvl {spell.level}
-                    </td>
-                    <td className="font-bold whitespace-nowrap">
-                      {spell.name}
-                    </td>
-                    <td className="whitespace-nowrap">{spell.school}</td>
-                    <td className="whitespace-nowrap">{spell.components}</td>
-                    <td className="whitespace-nowrap">{spell.range}</td>
-                    <td className="whitespace-nowrap">{spell.duration}</td>
-                    <td className="whitespace-nowrap">{spell.damage}</td>
-                    <td className="whitespace-nowrap">{spell.savingThrow}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className="flex flex-col gap-0 border border-black rounded overflow-hidden">
+               {characterData.magic.spells.map((spell, index) => (
+                  <SpellRow 
+                    key={index} 
+                    spell={spell} 
+                    path={`magic.spells.${index}`} 
+                    handleUpdate={handleUpdate} 
+                    onRemove={() => handleRemoveSpell(index)} 
+                    onDuplicate={() => handleDuplicateSpell(index)}
+                  />
+               ))}
+            </div>
           </div>
   
+            {isCleric && (
           <div className="max-w-1/8 w-full">
             <h3 className="font-bold">Turn Rate</h3>
             <div className="grid grid-cols-1 gap-2 w-full">
-              {Object.keys(characterData.turnRate).map((key, index) => (
+              {Object.keys(characterData.turnUndead).map((key, index) => (
                 <div
                   key={index}
                   className="flex flex-row justify-between gap-2 rounded border border-black p-2"
                 >
-                  <label className="capitalize">{key}</label>
+                  <label className="capitalize text-xs">{key}</label>
                   <input
                     type="text"
-                    value={characterData.turnRate[key]}
-                    onChange={(e) => handleUpdate("turnRate", e.target.value, key)}
-                    className="w-8 text-center bg-transparent outline-none border-b-2 border-transparent hover:border-zinc-300 focus:border-zinc-800 transition-colors"
+                    value={String(characterData.turnUndead[key])}
+                    onChange={(e) => handleUpdate(`turnUndead.${key}`, e.target.value)}
+                    className="w-8 text-center bg-transparent outline-none border-b border-transparent hover:border-zinc-300 focus:border-zinc-800 transition-colors text-xs"
                   />
                 </div>
               ))}
             </div>
           </div>
+          )}
         </section>
         
+        {isWizard && (
         <div className="w-full flex flex-row gap-2 mb-2 justify-center mt-4">
           <h3 className="font-bold mx-2 my-auto">Arcane</h3>
-          {Object.keys(characterData.arcaneSpellSlots).map(
+          {Object.keys(characterData.magic.slots.arcane).map(
             (spell, index) => (
               <div
                 key={index}
@@ -96,9 +137,9 @@ export default function SpellCasting({ characterData, handleUpdate }: any) {
               >
                 <input
                   type="text"
-                  value={characterData.arcaneSpellSlots[spell]}
-                  onChange={(e) => handleUpdate("arcaneSpellSlots", e.target.value, spell)}
-                  className="w-6 text-center bg-transparent outline-none border-b-2 border-transparent hover:border-zinc-300 focus:border-zinc-800 transition-colors"
+                  value={characterData.magic.slots.arcane[spell as keyof typeof characterData.magic.slots.arcane]}
+                  onChange={(e) => handleUpdate(`magic.slots.arcane.${spell}`, e.target.value)}
+                  className="w-6 text-center bg-transparent outline-none border-b border-transparent hover:border-zinc-300 focus:border-zinc-800 transition-colors"
                 />
                 <label className="font-bold">
                   {index === 0
@@ -113,12 +154,14 @@ export default function SpellCasting({ characterData, handleUpdate }: any) {
             )
           )}
         </div>
+        )}
         
+        {isCleric && (
         <div className="w-full flex flex-row gap-2 justify-center">
           <h3 className="font-bold mx-2 text-center align-middle my-auto">
             Divine
           </h3>
-          {Object.keys(characterData.divineSpellSlots).map(
+          {Object.keys(characterData.magic.slots.divine).map(
             (spell, index) => (
               <div
                 key={index}
@@ -126,9 +169,9 @@ export default function SpellCasting({ characterData, handleUpdate }: any) {
               >
                 <input
                   type="text"
-                  value={characterData.divineSpellSlots[spell]}
-                  onChange={(e) => handleUpdate("divineSpellSlots", e.target.value, spell)}
-                  className="w-6 text-center bg-transparent outline-none border-b-2 border-transparent hover:border-zinc-300 focus:border-zinc-800 transition-colors"
+                  value={characterData.magic.slots.divine[spell as keyof typeof characterData.magic.slots.divine]}
+                  onChange={(e) => handleUpdate(`magic.slots.divine.${spell}`, e.target.value)}
+                  className="w-6 text-center bg-transparent outline-none border-b border-transparent hover:border-zinc-300 focus:border-zinc-800 transition-colors"
                 />
                 <label className="font-bold">
                   {index === 0
@@ -143,6 +186,9 @@ export default function SpellCasting({ characterData, handleUpdate }: any) {
             )
           )}
         </div>
+        )}
       </section>
+      )}
+      </>
     );
   }
