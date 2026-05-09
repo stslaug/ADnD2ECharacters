@@ -221,24 +221,33 @@ export default function Home() {
 
   const toggleScreenMode = () => {
     setMargins(!margins);
+
   };
-  // 2. Auto-Save to LocalStorage
-  // This useEffect watches 'characterData'. Whenever it changes, it overwrites the save file.
+  // 1. Initial Load from LocalStorage
   useEffect(() => {
-    
     const savedCharacter = localStorage.getItem("characterSave");
     if (savedCharacter) {
       try {
         const parsed = JSON.parse(savedCharacter);
         if (parsed && parsed.meta && parsed.identity) {
           setCharacterData(parsed);
-          setIsMounted(true);
         }
       } catch (e) {
         console.error("Failed to parse saved character data:", e);
       }
     }
+    // Set isMounted to true after the load attempt is finished
+    setIsMounted(true);
   }, []);
+
+  // 2. Auto-Save to LocalStorage on Change
+  // This useEffect watches 'characterData'. Whenever it changes, it overwrites the save file.
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem("characterSave", JSON.stringify(characterData));
+      localStorage.setItem("margins", margins.toString());
+    }
+  }, [margins, characterData, isMounted]);
 
   const triggerFileInput = () => {
     if (fileInputRef.current === null) return;
@@ -322,6 +331,7 @@ export default function Home() {
   };
   const eraseLocalStorage = () => {
     localStorage.removeItem("characterSave");
+    localStorage.removeItem("margins");
     window.location.reload();
   };
 
