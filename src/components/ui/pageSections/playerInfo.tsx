@@ -5,7 +5,7 @@ export default function PlayerInfo({ characterData, handleUpdate }: {
   handleUpdate: (path: string, value: any) => void; 
 }) {
   return (
-    <section className="w-full flex relative">
+    <section className="w-full flex relative flex-grow">
       {/* Top Left */}
       <section className=" w-full gap-3 flex flex-row  justify-between">
         <div>

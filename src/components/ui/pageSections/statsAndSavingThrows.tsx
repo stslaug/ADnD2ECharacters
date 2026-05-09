@@ -1,29 +1,37 @@
 import { CharacterData, SavingThrowBonus } from "@/types/character";
 
-export default function StatsAndSavingThrows({ characterData, handleUpdate }: {
+export default function StatsAndSavingThrows({
+  characterData,
+  handleUpdate,
+  className,
+}: {
   characterData: CharacterData;
   handleUpdate: (path: string, value: any) => void;
+  className: string;
 }) {
+  const handleAddSavingThrowBonus = () => {
+    const newItem: SavingThrowBonus = {
+      type: "to Poison",
+      value: "+0",
+    };
+    handleUpdate("savingThrows.bonuses", [
+      ...characterData.savingThrows.bonuses,
+      newItem,
+    ]);
+  };
 
-    const handleAddSavingThrowBonus = () => {
-        const newItem: SavingThrowBonus = {
-          type: "to Poison",
-          value: "+0"
-        };
-        handleUpdate("savingThrows.bonuses", [...characterData.savingThrows.bonuses, newItem]);
-      };
-    
-      const handleRemoveSavingThrowBonus = (index: number) => {
-        const updated = characterData.savingThrows.bonuses.filter((_, i) => i !== index);
-        handleUpdate("savingThrows.bonuses", updated);
-      };
-    
-    return (
-        <section>
-         {/* Character Stats and Saving Throws*/}
-      <div className="flex flex-row">
+  const handleRemoveSavingThrowBonus = (index: number) => {
+    const updated = characterData.savingThrows.bonuses.filter(
+      (_, i) => i !== index
+    );
+    handleUpdate("savingThrows.bonuses", updated);
+  };
+
+  return (
+      <div className={"flex flex-row min-w-min " + className}>
+        {/* Character Stats and Saving Throws*/}
         {/* Left Column and Character Stats */}
-        <section className="flex flex-col p-4 font-mono text-sm gap-3">
+        <section className="flex flex-col p-4 w-full  font-mono text-sm gap-3">
           {/* Strength Row */}
           <div className="flex flex-row w-full items-stretch gap-3">
             <div className="border border-black flex items-center justify-center w-[40px] text-lg">
@@ -39,7 +47,7 @@ export default function StatsAndSavingThrows({ characterData, handleUpdate }: {
             <div className="font-bold flex items-center justify-center w-[30px] text-xl">
               S
             </div>
-            <div className="flex flex-row flex-grow max-w-[500px] border border-black">
+            <div className="flex flex-row flex-grow border border-black">
               <div className="font-bold border-r border-black px-2 py-1 flex flex-grow items-center w-[100px]">
                 Hit Adj.
               </div>
@@ -110,7 +118,7 @@ export default function StatsAndSavingThrows({ characterData, handleUpdate }: {
             <div className="font-bold flex items-center justify-center w-[30px] text-xl">
               D
             </div>
-            <div className="flex flex-row flex-grow max-w-[500px] border border-black">
+            <div className="flex flex-row flex-grow border border-black">
               <div className="font-bold border-r border-black px-2 py-1 flex flex-grow items-center w-min">
                 React Adj.
               </div>
@@ -168,7 +176,7 @@ export default function StatsAndSavingThrows({ characterData, handleUpdate }: {
             <div className="font-bold flex items-center justify-center w-[30px] text-xl">
               C
             </div>
-            <div className="flex flex-row flex-grow max-w-[500px] border border-black">
+            <div className="flex flex-row flex-grow border border-black">
               <div className="font-bold border-r border-black px-2 py-1 flex flex-grow items-center w-min">
                 Hit Point Adj
               </div>
@@ -239,7 +247,7 @@ export default function StatsAndSavingThrows({ characterData, handleUpdate }: {
             <div className="font-bold flex items-center justify-center w-[30px] text-xl">
               W
             </div>
-            <div className="flex flex-row flex-grow max-w-[500px] border border-black">
+            <div className="flex flex-row flex-grow  border border-black">
               <div className="font-bold border-r border-black px-2 py-1 flex flex-grow items-center w-min">
                 Magical Atk Adj
               </div>
@@ -297,7 +305,7 @@ export default function StatsAndSavingThrows({ characterData, handleUpdate }: {
             <div className="font-bold flex items-center justify-center w-[30px] text-xl">
               I
             </div>
-            <div className="flex flex-row flex-grow border max-w-[500px] border-black">
+            <div className="flex flex-row flex-grow border  border-black">
               <div className="font-bold border-r border-black px-2 py-1 flex  flex-grow items-center w-min">
                 Languages
               </div>
@@ -354,7 +362,7 @@ export default function StatsAndSavingThrows({ characterData, handleUpdate }: {
           </div>
 
           {/* Charisma Row */}
-          <div className="flex flex-row w-full items-stretch gap-3">
+          <div className="flex flex-row w-full  items-stretch gap-3">
             <div className="border border-black flex items-center justify-center w-[40px] text-lg">
               <input
                 type="text"
@@ -368,7 +376,7 @@ export default function StatsAndSavingThrows({ characterData, handleUpdate }: {
             <div className="font-bold flex items-center justify-center w-[30px] text-xl">
               CH
             </div>
-            <div className="flex flex-row flex-grow max-w-[500px] border border-black">
+            <div className="flex flex-row flex-grow  border border-black">
               <div className="font-bold border-r border-black px-2 py-1 flex flex-grow items-center w-min ">
                 Max # Henchmen
               </div>
@@ -413,13 +421,13 @@ export default function StatsAndSavingThrows({ characterData, handleUpdate }: {
         </section>
 
         {/* Saving Throws  and Saving Throw Adjustmentts*/}
-        <div className="flex flex-col ">
-          <div className="flex flex-col align-right justify-right gap-3 w-full">
+        <section className="flex flex-col justify-right  min-w-1/4 gap-4 ">
+          
             <h1 className="font-bold text-left">Saving Throws:</h1>
 
-            <div className="flex flex-row gap-2 items-center text-right justify-right ml-auto">
+            <div className="flex flex-row gap-2 items-right">
               <label>Paralyzation / Poison</label>
-              <div className="border-2 border-black flex justify-center text-center items-center max-w-[30px] max-h-[30px] w-[30px] h-[30px]">
+              <div className="border-2 border-black flex flex-grow justify-center text-center items-right ml-auto max-w-[30px] max-h-[30px] w-[30px] h-[30px]">
                 <input
                   type="text"
                   value={characterData.savingThrows.base.paralyzationPoison}
@@ -434,9 +442,9 @@ export default function StatsAndSavingThrows({ characterData, handleUpdate }: {
               </div>
             </div>
 
-            <div className="flex flex-row gap-2 items-center text-right ml-auto">
+            <div className="flex flex-row gap-2 items-center  ">
               <label>Petrification & Polymorph</label>
-              <div className="border-2 border-black flex justify-center text-center items-center max-w-[30px] max-h-[30px] w-[30px] h-[30px]">
+              <div className="border-2 border-black flex flex-grow ml-auto justify-center text-center items-center max-w-[30px] max-h-[30px] w-[30px] h-[30px]">
                 <input
                   type="text"
                   value={characterData.savingThrows.base.petrificationPolymorph}
@@ -451,9 +459,9 @@ export default function StatsAndSavingThrows({ characterData, handleUpdate }: {
               </div>
             </div>
 
-            <div className="flex flex-row gap-2 items-center text-right ml-auto">
+            <div className="flex flex-row gap-2 items-center">
               <label>Rods, Staves, or Wands</label>
-              <div className="border-2 border-black flex justify-center text-center items-center max-w-[30px] max-h-[30px] w-[30px] h-[30px]">
+              <div className="border-2 border-black flex flex-grow ml-auto justify-center text-center items-center max-w-[30px] max-h-[30px] w-[30px] h-[30px]">
                 <input
                   type="text"
                   value={characterData.savingThrows.base.rodsStavesWands}
@@ -468,9 +476,9 @@ export default function StatsAndSavingThrows({ characterData, handleUpdate }: {
               </div>
             </div>
 
-            <div className="flex flex-row gap-2 items-center text-right ml-auto">
+            <div className="flex flex-row gap-2 items-center">
               <label>Breath Weapons</label>
-              <div className="border-2 border-black flex justify-center text-center items-center max-w-[30px] max-h-[30px] w-[30px] h-[30px]">
+              <div className="border-2 border-black flex flex-grow ml-auto justify-center text-center items-center max-w-[30px] max-h-[30px] w-[30px] h-[30px]">
                 <input
                   type="text"
                   value={characterData.savingThrows.base.breathWeapons}
@@ -484,10 +492,9 @@ export default function StatsAndSavingThrows({ characterData, handleUpdate }: {
                 />
               </div>
             </div>
-
-            <div className="flex flex-row gap-2 items-center text-right ml-auto">
+            <div className="flex flex-row gap-2  items-center">
               <label>Spells</label>
-              <div className="border-2 border-black flex justify-center text-center items-center max-w-[30px] max-h-[30px] w-[30px] h-[30px]">
+              <div className="border-2 border-black flex flex-grow ml-auto justify-center text-center items-center max-w-[30px] max-h-[30px] w-[30px] h-[30px]">
                 <input
                   type="text"
                   value={characterData.savingThrows.base.spells}
@@ -498,49 +505,66 @@ export default function StatsAndSavingThrows({ characterData, handleUpdate }: {
                 />
               </div>
             </div>
-          </div>
+          
 
           {/* Saving Throw Adjustments */}
-              <div className="w-full max-w-full flex flex-col gap-4">
-                <div className="flex flex-row items-center gap-2 ">
-                  <h3 className="font-bold text-md">Saving Throw Adjustments</h3>
-                  <button
-                    onClick={handleAddSavingThrowBonus}
-                    className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 transition-colors font-bold text-xl"
-                    title="Add Saving Throw Bonus"
-                  >
-                    <span className="leading-none">+</span>
-                  </button>
-                </div>
-                <div className="grid grid-cols-1 gap-2 ">
-                  {characterData.savingThrows.bonuses.map((item: SavingThrowBonus, index: number) => (
-                    <div className="group flex flex-row items-center gap-1 relative pr-7" key={index}>
-                      <input
-                        type="text"
-                        value={item.value}
-                        onChange={(e) => handleUpdate(`savingThrows.bonuses.${index}.value`, e.target.value)}
-                        className="w-10 bg-transparent outline-none border-b border-transparent hover:border-zinc-300 focus:border-zinc-800 text-center font-medium"
-                      />
-                      <input
-                        type="text"
-                        value={item.type}
-                        onChange={(e) => handleUpdate(`savingThrows.bonuses.${index}.type`, e.target.value)}
-                        className="flex-1 min-w-0 bg-transparent outline-none border-b border-transparent hover:border-zinc-300 focus:border-zinc-800 font-bold"
-                      />
-                      <button
-                        onClick={() => handleRemoveSavingThrowBonus(index)}
-                        className="absolute right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-6 h-6 flex items-center justify-center rounded-full bg-red-100 hover:bg-red-200 text-red-600 font-bold text-lg"
-                        title="Remove Saving Throw Adjustment"
-                      >
-                        <span className="leading-none mt-[-2px]">-</span>
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
+          <div className="w-full max-w-full flex  flex-col gap-4">
+            {/* Titled Row */}
+            <div className="flex flex-row  items-center gap-2 ">
+              <h3 className="font-bold text-md">Saving Throw Adjustments</h3>
+              <button
+                onClick={handleAddSavingThrowBonus}
+                className="w-8 h-8 flex flex-grow ml-auto items-center justify-center rounded-full bg-zinc-100 text-black border border-black/50 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-white dark:border-white/50 cursor-pointer transition-colors font-bold text-xl shadow-sm"
+                title="Add Saving Throw Bonus"
+              >
+                <span className="leading-none">+</span>
+              </button>
+            </div>
 
-        </div>
+            {/* Saving Throw Adjustments */}
+            <div className="grid grid-cols-1 gap-2 ">
+              {characterData.savingThrows.bonuses.map(
+                (item: SavingThrowBonus, index: number) => (
+                  <div
+                    className="group flex flex-row items-center gap-1 relative pr-7"
+                    key={index}
+                  >
+                    <input
+                      type="text"
+                      value={item.value}
+                      onChange={(e) =>
+                        handleUpdate(
+                          `savingThrows.bonuses.${index}.value`,
+                          e.target.value
+                        )
+                      }
+                      className="w-10 bg-transparent outline-none border-b border-transparent hover:border-zinc-300 focus:border-zinc-800 text-center font-medium"
+                    />
+                    <input
+                      type="text"
+                      value={item.type}
+                      onChange={(e) =>
+                        handleUpdate(
+                          `savingThrows.bonuses.${index}.type`,
+                          e.target.value
+                        )
+                      }
+                      className="flex-1 min-w-0 bg-transparent outline-none border-b border-transparent hover:border-zinc-300 focus:border-zinc-800 font-bold"
+                    />
+                    <button
+                      onClick={() => handleRemoveSavingThrowBonus(index)}
+                      className="absolute right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-6 h-6 flex items-center justify-center rounded-full bg-red-100 hover:bg-red-200 text-red-600 font-bold text-lg"
+                      title="Remove Saving Throw Adjustment"
+                    >
+                      <span className="leading-none mt-[-2px]">-</span>
+                    </button>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        </section>
       </div>
-      </section>
-    );
+   
+  );
 }

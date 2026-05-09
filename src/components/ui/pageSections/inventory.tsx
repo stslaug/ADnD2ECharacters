@@ -35,7 +35,7 @@ function InventoryItemRow({
         </div>
         <button 
           onClick={() => setIsExpanded(!isExpanded)}
-          className="flex-shrink-0 text-[10px] sm:text-xs bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 px-2 py-1 rounded transition-colors whitespace-nowrap"
+          className="flex-shrink-0 text-[10px] sm:text-xs bg-zinc-100 text-black border border-black/50 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-white dark:border-white/50 px-2 py-1 cursor-pointer rounded-sm transition-colors whitespace-nowrap"
         >
           {isExpanded ? "Collapse" : "Details"}
         </button>
@@ -148,7 +148,7 @@ export default function Inventory({ characterData, handleUpdate }: {
           <h3 className="font-bold">Magic Items</h3>
           <button
             onClick={() => handleAddItem("magic")}
-            className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 transition-colors font-bold text-xl"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-black border border-black/50 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-white dark:border-white/50 cursor-pointer transition-colors font-bold text-xl shadow-sm"
             title="Add Magic Item"
           >
             <span className="leading-none">+</span>
@@ -171,7 +171,7 @@ export default function Inventory({ characterData, handleUpdate }: {
           <h3 className="font-bold">Base</h3>
           <button
             onClick={() => handleAddItem("standard")}
-            className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 transition-colors font-bold text-xl"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-black border border-black/50 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-white dark:border-white/50 cursor-pointer transition-colors font-bold text-xl shadow-sm"
             title="Add Base Item"
           >
             <span className="leading-none">+</span>

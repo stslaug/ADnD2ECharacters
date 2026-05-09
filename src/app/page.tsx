@@ -215,9 +215,13 @@ export default function Home() {
   const [currFile, setCurrFile] = useState(null);
   const [characterData, setCharacterData] = useState<CharacterData>(defaultData);
   const [isMounted, setIsMounted] = useState(false);
-
+  const [margins, setMargins] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+
+  const toggleScreenMode = () => {
+    setMargins(!margins);
+  };
   // 2. Auto-Save to LocalStorage
   // This useEffect watches 'characterData'. Whenever it changes, it overwrites the save file.
   useEffect(() => {
@@ -322,8 +326,8 @@ export default function Home() {
   };
 
   return (
-    <div className=" justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-col relative min-h-screen w-full max-w-6xl items-center  gap-4  py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div className=" justify-center bg-zinc-50 min-h-screen   font-mono dark:bg-black">
+      <main className={"flex flex-col relative w-full  ml-auto  gap-4  py-32 px-16  dark:bg-black sm:items-start" + (margins ? "" : " m-auto max-w-6xl")}> 
         <Image
           src={adnd2eimage}
           alt="advanced-D&D-image"
@@ -339,7 +343,7 @@ export default function Home() {
         <BasicInfo characterData={characterData} handleUpdate={handleUpdate} />
 
 
-        <StatsAndSavingThrows characterData={characterData} handleUpdate={handleUpdate} />
+        <StatsAndSavingThrows className=" w-full" characterData={characterData} handleUpdate={handleUpdate} />
 
         <hr className="border-1 rounded-full w-full"></hr>
         {/* 3rd Row (Saving Throws and Resistances AND Senses) */}
@@ -403,6 +407,13 @@ export default function Home() {
             className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded font-bold cursor-pointer"
           >
             Reset
+          </button>
+
+          <button
+            onClick={toggleScreenMode}
+            className="px-4 py-2 bg-zinc-100 border  border-black/50  shadow-sm hover:bg-zinc-200  rounded font-bold cursor-pointer"
+          >
+            Toggle Margins
           </button>
         </section>
       </main>

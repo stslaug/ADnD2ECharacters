@@ -62,8 +62,8 @@ export default function Combat({ characterData, handleUpdate }: {
             </div>
           </div>
           <div className="w-full">
-            <div className="flex flex-row gap-2 bg-gray-200 w-full items-center">
-              <p className="max-w-1/3 min-w-min w-full bg-gray-300 px-1">
+            <div className="flex flex-row gap-2 bg-zinc-200 w-full items-center">
+              <p className="max-w-1/3 min-w-min w-full bg-zinc-300 px-1">
                 Armor Worn
               </p>
               <input
@@ -73,8 +73,8 @@ export default function Combat({ characterData, handleUpdate }: {
                 className="w-full bg-transparent outline-none px-1 border-b-2 border-transparent hover:border-zinc-400 focus:border-zinc-600 transition-colors"
               />
             </div>
-            <div className="flex flex-row gap-2 bg-gray-200 w-full items-center">
-              <p className="max-w-1/3 min-w-min w-full bg-gray-300 px-1">
+            <div className="flex flex-row gap-2 bg-zinc-200 w-full items-center">
+              <p className="max-w-1/3 min-w-min w-full bg-zinc-300 px-1">
                 Base AC
               </p>
               <input
@@ -84,8 +84,8 @@ export default function Combat({ characterData, handleUpdate }: {
                 className="w-full bg-transparent outline-none px-1 border-b-2 border-transparent hover:border-zinc-400 focus:border-zinc-600 transition-colors"
               />
             </div>
-            <div className="flex flex-row gap-2 bg-gray-200 w-full items-center">
-              <p className="max-w-1/3 min-w-min w-full bg-gray-300 px-1">
+            <div className="flex flex-row gap-2 bg-zinc-200 w-full items-center">
+              <p className="max-w-1/3 min-w-min w-full bg-zinc-300 px-1">
                 Dex Adj.
               </p>
               <input
@@ -95,8 +95,8 @@ export default function Combat({ characterData, handleUpdate }: {
                 className="w-full bg-transparent outline-none px-1 border-b-2 border-transparent hover:border-zinc-400 focus:border-zinc-600 transition-colors"
               />
             </div>
-            <div className="flex flex-row gap-2 bg-gray-200 w-full items-center">
-              <p className="max-w-1/3 min-w-min w-full bg-gray-300 px-1">
+            <div className="flex flex-row gap-2 bg-zinc-200 w-full items-center">
+              <p className="max-w-1/3 min-w-min w-full bg-zinc-300 px-1">
                 Shieldless AC
               </p>
               <input
@@ -106,8 +106,8 @@ export default function Combat({ characterData, handleUpdate }: {
                 className="w-full bg-transparent outline-none px-1 border-b-2 border-transparent hover:border-zinc-400 focus:border-zinc-600 transition-colors"
               />
             </div>
-            <div className="flex flex-row gap-2 bg-gray-200 w-full items-center">
-              <p className="max-w-1/3 min-w-min w-full bg-gray-300 px-1">
+            <div className="flex flex-row gap-2 bg-zinc-200 w-full items-center">
+              <p className="max-w-1/3 min-w-min w-full bg-zinc-300 px-1">
                 Rear AC
               </p>
               <input
@@ -126,7 +126,7 @@ export default function Combat({ characterData, handleUpdate }: {
             <h3 className="font-bold">Weapons Proficiencies</h3>
             <button
               onClick={handleAddWeapon}
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 transition-colors font-bold text-xl"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-black border border-black/50 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-white dark:border-white/50 cursor-pointer transition-colors font-bold text-xl shadow-sm"
               title="Add Weapon"
             >
               <span className="leading-none">+</span>
@@ -171,7 +171,7 @@ export default function Combat({ characterData, handleUpdate }: {
               <h3 className="font-bold">Combat Adjustments</h3>
               <button
                 onClick={handleAddAdjustment}
-                className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 transition-colors font-bold text-xl"
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-black border border-black/50 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-white dark:border-white/50 cursor-pointer transition-colors font-bold text-xl shadow-sm"
                 title="Add Combat Adjustment"
               >
                 <span className="leading-none">+</span>

@@ -24,7 +24,7 @@ export default function Experience({ characterData, handleUpdate }: {
         <h2 className="text-lg font-bold ">Experience & Classes</h2>
         <button
           onClick={handleAddClass}
-          className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 transition-colors font-bold text-xl"
+          className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-black border border-black/50 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-white dark:border-white/50 cursor-pointer transition-colors font-bold text-xl shadow-sm"
           title="Add Class"
         >
           <span className="leading-none">+</span>

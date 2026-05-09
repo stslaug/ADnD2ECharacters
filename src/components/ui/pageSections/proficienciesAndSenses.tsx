@@ -139,7 +139,7 @@ export default function SavingThrowsAndSenses({characterData, handleUpdate }: {
         <h1 className="font-bold text-lg">Non-Weapon Proficiencies</h1>
         <button
           onClick={handleAddProficiency}
-          className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 transition-colors font-bold text-xl"
+          className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-black border border-black/50 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-white dark:border-white/50 cursor-pointer transition-colors font-bold text-xl shadow-sm"
           title="Add Proficiency"
         >
           <span className="leading-none">+</span>

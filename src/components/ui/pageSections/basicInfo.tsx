@@ -101,7 +101,7 @@ export default function BasicInfo({
                   <button
                     key={index}
                     onClick={scrollToExperience}
-                    className="text-md border-b-2 border-transparent hover:border-zinc-300 font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl bg-transparent outline-none transition-colors"
+                    className="text-sm border-b-2 border-transparent hover:border-zinc-300 font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl bg-transparent outline-none transition-colors"
                     title="Click to edit in Experience section"
                   >
                     {item.level}

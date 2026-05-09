@@ -51,7 +51,7 @@ export default function SpellCasting({ characterData, handleUpdate }: {
                 </div>
                 <button
                   onClick={handleAddSpell}
-                  className="absolute -right-4 top-4 w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 transition-all font-bold text-xl shadow-sm border border-black/10 z-10"
+                  className="absolute -right-4 top-4 w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-black border border-black/50 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-white dark:border-white/50 cursor-pointer transition-all font-bold text-xl shadow-sm z-10"
                   title="Add Spell"
                 >
                   <span className="leading-none">+</span>
