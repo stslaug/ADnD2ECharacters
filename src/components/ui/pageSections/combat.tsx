@@ -38,7 +38,7 @@ export default function Combat({ characterData, handleUpdate }: {
   return (
     <section className="w-full">
       <h2 className="text-lg w-full font-bold ">Combat</h2>
-      <section className="flex flex-row gap-8 w-full">
+      <section className="flex md:flex-row flex-col gap-8 w-full">
         {/* AC AND HP */}
         <div className="w-min min-w-1/3 text-nowrap">
           <div className="flex flex-row justify-between py-2 gap-4">

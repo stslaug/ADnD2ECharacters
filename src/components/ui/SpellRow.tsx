@@ -89,7 +89,7 @@ export default function SpellRow({
           
           <button
             onClick={onDuplicate}
-            className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-5 h-5 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+            className="md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-5 h-5 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
             title="Duplicate Spell"
           >
             <Image src="/duplicate.svg" alt="Duplicate" width={12} height={12} className="dark:invert" />
@@ -97,7 +97,7 @@ export default function SpellRow({
 
           <button
             onClick={onRemove}
-            className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-5 h-5 flex items-center justify-center rounded-full bg-red-100 hover:bg-red-200 text-red-600 font-bold text-sm"
+            className="md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-5 h-5 flex items-center justify-center rounded-full bg-red-100 hover:bg-red-200 text-red-600 font-bold text-sm"
             title="Remove Spell"
           >
             <span className="leading-none mt-[-2px]">-</span>

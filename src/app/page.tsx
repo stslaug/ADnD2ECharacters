@@ -336,14 +336,14 @@ export default function Home() {
   };
 
   return (
-    <div className=" justify-center bg-zinc-50 min-h-screen   font-mono dark:bg-black">
+    <div className=" justify-center bg-zinc-50 min-h-screen font-mono dark:bg-black">
       <main className={"flex flex-col relative w-full  ml-auto  gap-4  py-32 px-16  dark:bg-black sm:items-start" + (margins ? "" : " m-auto max-w-6xl")}> 
         <Image
           src={adnd2eimage}
           alt="advanced-D&D-image"
           width={200}
           height={500}
-          className=" absolute lg:left-[40%] top-33 "
+          className=" absolute md:left-[40%] top-33 max-md:hidden" 
         />
 
         {/* Top/1st Row  (Player Info) */}
@@ -386,7 +386,7 @@ export default function Home() {
         <Experience characterData={characterData} handleUpdate={handleUpdate} />
 
         {/* Load/ Save Character Info */}
-        <section className="flex flex-row gap-4 w-full justify-end">
+        <section className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full justify-end">
           {/* The hidden file input */}
           <input
             type="file"

@@ -12,12 +12,10 @@ export default function BasicInfo({
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
-  };
+  }; {/* Top Row and Character Details Character Meta */}
   return (
-    <section className="flex flex-col w-full gap-4">
-      {/* Top Row and Character Details Character Meta */}
       <section className="gap-4 flex flex-col w-full">
-        <div>
+        <div> 
           <input
             type="text"
             value={characterData.identity.name}
@@ -28,7 +26,7 @@ export default function BasicInfo({
         </div>
 
         {/* Character Details */}
-        <div className="flex-row flex gap-4 w-full">
+        <div className="flex-col sm:flex-row flex gap-4 w-full">
           {/* Class */}
           <div>
             <label>Class</label>
@@ -51,6 +49,33 @@ export default function BasicInfo({
                   className="text-sm border-b-2 border-transparent hover:border-zinc-300 font-bold tracking-tight text-zinc-500 sm:text-xl bg-transparent outline-none transition-colors"
                 >
                   None
+                </button>
+              )}
+            </div>
+          </div>
+
+                    {/* Level */}
+                    <div className="w-min max-w-min min-w-min">
+            <label>Level</label>
+            <div className="flex flex-row gap-2">
+              {characterData.identity.classes &&
+              characterData.identity.classes.length > 0 ? (
+                characterData.identity.classes?.map((item, index: number) => (
+                  <button
+                    key={index}
+                    onClick={scrollToExperience}
+                    className="text-sm border-b-2 border-transparent hover:border-zinc-300 font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl bg-transparent outline-none transition-colors"
+                    title="Click to edit in Experience section"
+                  >
+                    {item.level}
+                  </button>
+                ))
+              ) : (
+                <button
+                  onClick={scrollToExperience}
+                  className="text-md border-b-2 border-transparent hover:border-zinc-300 font-bold tracking-tight text-zinc-500 sm:text-xl bg-transparent outline-none transition-colors"
+                >
+                  0
                 </button>
               )}
             </div>
@@ -91,33 +116,6 @@ export default function BasicInfo({
             />
           </div>
 
-          {/* Level */}
-          <div className="w-min max-w-min min-w-min">
-            <label>Level</label>
-            <div className="flex flex-row gap-2">
-              {characterData.identity.classes &&
-              characterData.identity.classes.length > 0 ? (
-                characterData.identity.classes?.map((item, index: number) => (
-                  <button
-                    key={index}
-                    onClick={scrollToExperience}
-                    className="text-sm border-b-2 border-transparent hover:border-zinc-300 font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl bg-transparent outline-none transition-colors"
-                    title="Click to edit in Experience section"
-                  >
-                    {item.level}
-                  </button>
-                ))
-              ) : (
-                <button
-                  onClick={scrollToExperience}
-                  className="text-md border-b-2 border-transparent hover:border-zinc-300 font-bold tracking-tight text-zinc-500 sm:text-xl bg-transparent outline-none transition-colors"
-                >
-                  0
-                </button>
-              )}
-            </div>
-          </div>
-
           <div className="">
             <label>Place of Origin</label>
             <input
@@ -129,7 +127,5 @@ export default function BasicInfo({
           </div>
         </div>
       </section>
-
-    </section>
   );
 }

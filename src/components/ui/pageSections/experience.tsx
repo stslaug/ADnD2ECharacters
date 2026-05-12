@@ -63,14 +63,15 @@ export default function Experience({ characterData, handleUpdate }: {
                     className="bg-transparent outline-none border-b border-transparent hover:border-zinc-300 focus:border-zinc-800 font-bold"
                   />
                 </div>
-              </div>
-              <button
+                <button
                 onClick={() => handleRemoveClass(index)}
-                className="absolute right-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-8 h-8 flex items-center justify-center rounded-full bg-red-100 hover:bg-red-200 text-red-600 font-bold text-xl"
+                className="absolute right-1 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-8 h-8 flex items-center justify-center rounded-full bg-red-100 hover:bg-red-200 text-red-600 font-bold text-xl"
                 title="Remove Class"
               >
                 <span className="leading-none mt-[-2px]">-</span>
               </button>
+              </div>
+              
             </div>
           ))
         ) : (
